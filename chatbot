@@ -10,30 +10,29 @@ const TOKEN = process.env.WHATSAPP_TOKEN;
 const PHONE_ID = process.env.PHONE_ID;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
-// Horario de atención - QUITO, ECUADOR
+// Horario QUITO - ECUADOR (America/Guayaquil)
 const horario = {
   zona: 'America/Guayaquil',
-  inicio: { hora: 8, minuto: 30 },     // Lunes a viernes 08:30
+  inicio: { hora: 8, minuto: 30 },     // Lunes-Viernes 08:30
   fin: { hora: 18, minuto: 30 },       // hasta 18:30
-  sabado: { inicio: 9, fin: 14 },      // Sábado 09:00 – 14:00
+  sabado: { inicio: 9, fin: 14 },      // Sábado 09:00-14:00
 };
 
-// Mensajes personalizados (cámbialos cuando quieras)
+// Mensajes (cámbialos cuando quieras)
 const respuestas = {
   fueraHorario: "¡Hola! 👋\n\nGracias por tu mensaje.\nEn este momento estamos fuera de nuestro horario de atención 😴\n\nTe responderemos lo más pronto posible cuando regresemos.\n\n🕙 Nuestro horario es:\nLunes a viernes: 08:30 – 18:30\nSábado: 09:00 – 14:00\nDomingo: cerrado\n\n¡Que tengas un excelente día! 🌟",
-  
   saludo: "¡Hola! 👋\n¡Qué gusto saludarte!\n¿En qué te puedo ayudar hoy?",
   precio: "Nuestros precios inician desde $25. ¿Qué producto o servicio te interesa exactamente?",
   horario: "🕙 Te atendemos en:\nLunes a viernes: 08:30 – 18:30\nSábado: 09:00 – 14:00\n¡Aquí estamos para ayudarte!",
-  direccion: "Estamos ubicados en Av. Amazonas y Naciones Unidas, Quito\n📍 https://maps.app.goo.gl/EjemploLinkMapsCambialo",
-  default: "Gracias por escribirnos 🙌\nEn un momento te atiende uno de nuestros asesores. ¡Un poquito de paciencia por favor!"
+  direccion: "Estamos ubicados en [TU DIRECCIÓN, QUITO]\n📍 https://maps.app.goo.gl/TU_LINK_AQUI",
+  default: "Gracias por escribirnos 🙌\nEn un momento te atiende uno de nuestros asesores. ¡Paciencia por favor!"
 };
 
 // ====== ¿ESTÁ DENTRO DEL HORARIO? ======
 function estaEnHorario() {
   const ahora = new Date().toLocaleString("en-US", { timeZone: horario.zona });
   const fecha = new Date(ahora);
-  const dia = fecha.getDay();
+  const dia = fecha.getDay(); // 0=domingo, 6=sábado
   const hora = fecha.getHours();
   const minuto = fecha.getMinutes();
   const horaActual = hora + minuto / 60;
@@ -92,7 +91,7 @@ app.post('/webhook', async (req, res) => {
         respuesta = respuestas.precio;
       } else if (/horario|hora|atienden|abren/.test(texto)) {
         respuesta = respuestas.horario;
-      } else if (/dirección|ubicación|dónde están|dónde queda|address/.test(texto)) {
+      } else if (/dirección|ubicación|dónde están|dónde queda/.test(texto)) {
         respuesta = respuestas.direccion;
       }
     }
@@ -102,49 +101,7 @@ app.post('/webhook', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/', (req, res) => res.send('Bot WhatsApp Quito ECUADOR activo 24/7'));
+app.get('/', (req, res) => res.send('Bot WhatsApp Quito - Ecuador activo 24/7'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Bot corriendo en puerto ${PORT}`));
-{
-  "name": "whatsapp-bot-quito-ecuador",
-  "version": "1.0.0",
-  "description": "Bot WhatsApp gratuito con horario de Quito - Ecuador",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": ["whatsapp", "bot", "ecuador", "quito", "cloud-api"],
-  "author": "Tu Nombre",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.7.7",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0"
-  }
-}
-WHATSAPP_TOKEN=tu_token_permanente_aqui
-PHONE_ID=123456789012345
-VERIFY_TOKEN=MiClaveSuperSecreta2025
-# WhatsApp Bot Quito - Ecuador
-
-Bot 100% GRATUITO con respuestas automáticas y mensaje "fuera de horario" perfecto para negocios en Quito.
-
-### Horario configurado
-- Lunes a viernes → 08:30 – 18:30  
-- Sábado → 09:00 – 14:00  
-- Domingo → cerrado (mensaje automático)
-
-### Cómo ponerlo en marcha (5 minutos)
-
-1. Crea la app en https://developers.facebook.com/apps
-2. Activa WhatsApp y genera tu token permanente
-3. Despliega gratis en Render.com (conecta este repositorio)
-4. Pega la URL + `/webhook` en Meta → Webhook
-5. ¡Listo! Ya responde solo
-
-Costo: $0 para siempre  
-Hosting: Render.com (plan gratis 24/7)  
-API: WhatsApp Cloud API oficial (gratis)
-
-¡Funciona perfecto en 2025!
