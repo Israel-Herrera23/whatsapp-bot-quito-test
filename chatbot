@@ -105,3 +105,37 @@ app.get('/', (req, res) => res.send('Bot WhatsApp Quito - Ecuador activo 24/7'))
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Bot corriendo en puerto ${PORT}`));
+{
+  "name": "whatsapp-bot-quito-ecuador",
+  "version": "1.0.0",
+  "description": "Bot WhatsApp 100% gratis con horario de Quito - Ecuador",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["whatsapp", "bot", "ecuador", "quito", "cloud-api"],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}
+# WhatsApp Bot Quito - Ecuador
+
+Bot 100% GRATUITO con respuestas automáticas y mensaje fuera de horario.
+
+### Horario
+- Lunes a viernes: 08:30 – 18:30  
+- Sábado: 09:00 – 14:00  
+- Domingo: cerrado (mensaje automático)
+
+### Deploy gratis en 3 minutos
+1. Conecta este repo en Render.com  
+2. Agrega las 3 variables de entorno  
+3. Pega la URL en Meta → Webhook  
+¡Listo!
+
+Costo: $0 para siempre  
+API: WhatsApp Cloud API oficial
